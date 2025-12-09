@@ -3,9 +3,7 @@ __pycache__/
 venv/
 
 # Ignore all image files (common formats)
-*.jpg
-*.jpeg
-*.png
+
 *.bmp
 *.gif
 *.tiff
