@@ -1,94 +1,58 @@
-# Rickshaw Detection System
+# 🚦 Auto Rickshaw Detection System
 
-This project uses YOLOv8 to detect and classify auto-rickshaws and non-auto rickshaws in images.
+📄 **Preprint (arXiv):**  
+**Auto Rickshaw Detection in the Wild**  
+👉 https://arxiv.org/abs/2510.26154  
 
-## Features
+---
 
-- Detects auto-rickshaws (with engines) and non-auto rickshaws (manually paddled)
-- Handles multiple objects in a single image
-- Provides confidence scores for detections
-- Visualizes detection results with color-coded bounding boxes (green for auto, red for non-auto)
+## 🔍 Overview
 
-## Setup
+This project presents a **YOLO-based object detection system** for detecting **auto rickshaws** in **dense urban traffic scenes**, particularly tailored for **South Asian road environments**.
 
-1. Install the required dependencies:
+Unlike generic vehicle detectors, this system focuses on real-world challenges such as **occlusion**, **class imbalance**, and **crowded traffic scenes**, enabling reliable detection for **traffic analytics and smart-city applications**.
 
-```bash
-pip install -r requirements.txt
-```
+---
 
-2. Dataset structure:
-   - The system uses labeled images from the `rickshaw_labeled_images` folder
-   - Images are stored in the `rickshaw_labeled_images/images` directory
-   - Labels are stored in the `rickshaw_labeled_images/labels` directory in YOLO format
+## 🧠 Key Challenges Addressed
 
-## Usage
+- **Occlusion:** Auto rickshaws are often partially hidden by buses, cars, or pedestrians.
+- **Class Imbalance:** Auto rickshaws appear much less frequently than other vehicles.
+- **Dense Urban Traffic:** Overlapping objects and cluttered scenes.
 
-Run the main script to prepare the dataset, train the model, and evaluate it:
+These challenges are handled through **dataset curation, annotation strategy, data augmentation, and careful YOLO training design**.
 
-```bash
-python rickshaw_detection.py
-```
+---
 
-### Custom Inference
+## ✨ Features
 
-To use the trained model for inference on new images, you can use the command-line interface or the Python API:
+- Detects **auto rickshaws** in real-world traffic images
+- Robust to **occlusion and dense traffic**
+- Supports **multiple detections per image**
+- Outputs **confidence scores and bounding boxes**
+- Lightweight inference suitable for deployment
+- Visualizes detection results
 
-#### Command-line interface
+---
 
-```bash
-python inference.py --image path/to/your/image.jpg --conf 0.25 --save output.jpg
-```
+## 🖼️ Sample Results
 
-Options:
-- `--image`: Path to the input image (required)
-- `--model`: Path to custom model weights (optional)
-- `--conf`: Confidence threshold (default: 0.25)
-- `--save`: Path to save the output image (optional)
+<p align="center">
+  <img src="assest/sample1.png" width="30%" />
+  <img src="assest/sample2.png" width="30%" />
+  <img src="assest/sample3.png" width="30%" />
+</p>
 
-#### Python API
+---
 
-```python
-from rickshaw_detection import RickshawDetector
+## 📁 Repository Structure
 
-# Initialize detector and load trained model
-detector = RickshawDetector()
-detector.load_model()  # Will load the best model from the training run
+Auto_Rickshaw_detection/
+├── assest/ # Sample result images
+├── inference.py # Inference script
+├── rickshaw_detection.py # Training pipeline
+├── main.py # Entry point
+├── frontend.html # Simple web demo
+├── requirements.txt # Python dependencies
+├── README.md
 
-# Detect rickshaws in an image
-img, detections = detector.detect_rickshaw('path/to/your/image.jpg')
-
-# Print detection results
-for i, det in enumerate(detections):
-    print(f"Detection {i+1}: {det['class']} with confidence {det['confidence']:.2f}")
-```
-
-## Model Training
-
-The system automatically:
-1. Processes the pre-labeled dataset in YOLO format
-2. Splits data into training and validation sets
-3. Trains a YOLOv8 model (default: 50 epochs)
-4. Saves the best model weights
-5. Evaluates model performance
-
-## Label Format
-
-The system uses YOLO format annotations where each line in the label file represents:
-```
-<class_id> <x_center> <y_center> <width> <height>
-```
-
-Where:
-- `class_id`: 0 for auto-rickshaw, 1 for non-auto rickshaw
-- `x_center`, `y_center`: Normalized center coordinates (0-1)
-- `width`, `height`: Normalized width and height (0-1)
-
-## Customization
-
-You can adjust the following parameters in the code:
-- Training epochs
-- Batch size
-- Image size
-- Confidence threshold for detection
-- Train/validation split ratio
