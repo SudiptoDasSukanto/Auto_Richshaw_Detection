@@ -45,14 +45,3 @@ These challenges are handled through **dataset curation, annotation strategy, da
 
 ---
 
-## 📁 Repository Structure
-
-Auto_Rickshaw_detection/
-├── assest/ # Sample result images
-├── inference.py # Inference script
-├── rickshaw_detection.py # Training pipeline
-├── main.py # Entry point
-├── frontend.html # Simple web demo
-├── requirements.txt # Python dependencies
-├── README.md
-
